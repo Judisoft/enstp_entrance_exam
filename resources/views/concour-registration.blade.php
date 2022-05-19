@@ -30,19 +30,35 @@
                             </div>
                             <div class="col-lg-9 formify_content_right">
                                 <div class="formify_box">
+                                @if (Session::has('success'))
+                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                        <strong>All good!</strong> {{ Session::get('success') }}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                @elseif(Session::has('error'))
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <strong>Oups!</strong> {{ Session::get('error') }}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                  </div>
+                                @endif
                                     <h6>Step 1 of 3</h6>
                                     <h4 class="form_title">Program Choice</h4>
                                     <form action="{{ route('concour.register') }}" method="POST" class="signup_form row">
                                         @csrf
                                         <div class="form-group col-lg-12">
                                             <label class="input_title" for="firstName">Choose Program</label>
-                                            <select name="program_choice" id="programChoice" class="niceselect">
+                                            <select name="program_choice" id="programChoice" class="niceselect @error('program_choice') border-danger @enderror">
                                                 <option value="">Choose a program</option>
                                                 <option value="meng">Masters in Engineering</option>
                                                 <option value="arch">Masters in Architecture</option>
-                                                <option value="man">Masters in Management</option>
+                                                <option value="man">Masters in Engineering Management</option>
                                                 <option value="tech">Senior Technicians</option>
                                             </select>
+                                            @error('program_choice') <small class="text-danger">{{ $message }}</small>  @enderror
                                         </div>
                                         <div class="form-group col-lg-12">
                                             <button type="submit"class="btn thm_btn text-transform-inherit">Save and Continue</button>
@@ -58,8 +74,6 @@
         </div>
     </div>
 
-    <!-- Optional JavaScript; choose one of the two! -->
-    <script src="assets/js/jquery-3.4.1.min.js"></script>
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="assets/vendors/bootstrap/js/popper.min.js"></script>
     <script src="assets/vendors/bootstrap/js/bootstrap.min.js"></script>

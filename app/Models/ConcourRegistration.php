@@ -16,7 +16,7 @@ class ConcourRegistration extends Model
         'user_id'
     ];
 
-    public function concour_registration() {
-        return $this->belongsTo(App\Models\User::class);
+    public function user() {
+        return $this->belongsTo(User::class);
     }
 }

@@ -43,7 +43,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function concour_registration() {
-        return $this->hasMany(App\Models\ConcourRegistration::class);
+    public function concour_registrations() {
+        return $this->hasMany(ConcourRegistration::class);
     }
 }

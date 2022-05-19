@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controller\ConcourRegistrationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::post('/home', [App\Http\Controllers\ConcourRegistrationController::class, 'store'])->name('concour.register');
+Route::get('concour-registration', [App\Http\Controllers\ConcourRegistrationController::class, 'create'])->name('create.register');

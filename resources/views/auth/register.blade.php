@@ -40,8 +40,12 @@
                                 <form action="{{ route('register') }}" method="POST" class="signup_form">
                                     @csrf
                                     <div class="form-group">
-                                        <label class="input_title" for="inputName">Name</label>
-                                        <input type="text" class="form-control" name="name" id="inputName" placeholder="Enter Your Name" >
+                                        <label class="input_title" for="inputFirstName">First Name</label>
+                                        <input type="text" class="form-control" name="first_name" id="inputFirstName" placeholder="Enter Your First Name" >
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="input_title" for="inputLastName">Last Name</label>
+                                        <input type="text" class="form-control" name="last_name" id="inputLastName" placeholder="Enter Your Last Name" >
                                     </div>
                                     <div class="form-group">
                                         <label class="input_title" for="inputEmail">Email</label>

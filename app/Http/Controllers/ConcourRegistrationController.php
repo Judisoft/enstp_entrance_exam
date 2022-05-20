@@ -65,7 +65,7 @@ class ConcourRegistrationController extends Controller
 
         $trans_id = TransactionId::select('transaction_id')->where('transaction_id', '=', $applicants_transaction_id)->get();
 
-        if($trans_id != null) {
+        if($trans_id != null && $trans_id == $applicants_transaction_id) {
             $applicant_info->transaction_id = $applicants_transaction_id;
         } else {
             return back()->with('error', 'Invalid Transaction Id');

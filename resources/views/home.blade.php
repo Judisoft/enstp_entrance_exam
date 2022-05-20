@@ -33,10 +33,25 @@
                             </div>
                             <div class="col-lg-9 formify_content_right">
                                 <div class="formify_box">
-                                    <h6>Step 1 of 3</h6>
+                                    @if (Session::has('success'))
+                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                            <strong>All good!</strong> {{ Session::get('success') }}
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                    @elseif(Session::has('error'))
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <strong>Oups!</strong> {{ Session::get('error') }}
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                            </button>
+                                    </div>
+                                    @endif
                                     <h4 class="form_title">Personal Information</h4>
-                                    <form action="#" method="POST" class="signup_form row">
+                                    <form action="{{ route('user.update', $user->id) }}" method="POST" class="signup_form row">
                                         @csrf
+                                        @method('PATCH')
                                         <div class="form-group col-md-6">
                                             <label class="input_title" for="firstName">First Name</label>
                                             <input type="text" class="form-control" id="firstName" name="first_name"
@@ -48,28 +63,34 @@
                                                 placeholder="last Name" value="{{ $user->last_name }}">
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label class="input_title" for="phone">Phone Number</label>
-                                            <input type="tel" class="form-control" pattern="[0-9]{3} [0-9]{3} [0-9]{3}" maxlength="9" id="phone" name="telephone"
-                                                placeholder="Phone Number" >
-                                        </div>
-                                        <div class="form-group col-md-6">
                                             <label class="input_title" for="inputaddress">Email Address</label>
                                             <input type="email" class="form-control" id="inputaddress" name="email"
                                                 placeholder="Email Address" value="{{ $user->email }}" >
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label class="input_title" for="age">Age</label>
-                                            <input type="text" class="form-control" id="age" placeholder="Age" name="age">
+                                            <label class="input_title" for="phone">Phone Number</label>
+                                            <input type="tel" class="form-control"  maxlength="9" id="phone" name="telephone"
+                                                placeholder="Phone Number" value="{{ $user->telephone }}">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label class="input_title" for="age">Date of Birth</label>
+                                            <input type="date" class="form-control" name="dob" id="dob" value="{{ $user->dob }}">
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label class="input_title">Gender</label>
                                             <select class="niceselect" name="gender">
-                                                <option value="m">Male</option>
-                                                <option value="f">Female</option>
+                                                <option value="">Select gender</option>
+                                                <option value="m" @if($user->gender === 'm') selected="selected" @endif>Male</option>
+                                                <option value="f" @if($user->gender === 'f') selected="selected" @endif>Female</option>
                                             </select>
                                         </div>
                                         <div class="form-group col-lg-12">
-                                            <button type="submit"class="btn thm_btn text-transform-inherit">Save and Continue</button>
+                                            <label class="input_title" for="firstName">Place of Birth</label>
+                                            <input type="text" class="form-control" id="pob" name="pob"
+                                                placeholder="Place of birth" value="{{ $user->pob }}" >
+                                        </div>
+                                        <div class="form-group col-lg-12">
+                                            <button type="submit"class="btn thm_btn text-transform-inherit text-right">Save and Continue</button>
                                         </div>
                                     </form>
                                 </div>

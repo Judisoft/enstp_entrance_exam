@@ -45,7 +45,35 @@
                                         </button>
                                   </div>
                                 @endif
-                                    <h6>Step 1 of 3</h6>
+                                    <h4 class="form_title">Personal Information <a href="{{ route('home') }}"><span class="iconify" data-icon="akar-icons:edit"></span></a></h4>
+                                    <table class="table table-borderless table-responsice">
+                                        <tbody>
+                                          <tr>
+                                            <th class="text-bold">First Name:</th>
+                                            <td>{{ $user->first_name }}</td>
+                                            <td class="text-bold">Last Name:</td>
+                                            <td>{{ $user->last_name }}</td>
+                                          </tr>
+                                          <tr>
+                                            <th class="text-bold">Email:</th>
+                                            <td>{{ $user->email }}</td>
+                                            <td class="text-bold">Telephone:</td>
+                                            <td>{{ $user->telephone }}</td>
+                                          </tr>
+                                          <tr>
+                                            <th class="text-bold">Gender:</th>
+                                            <td>{{ $user->gender }}</td>\
+                                            <td></td>
+                                            <td></td>
+                                          </tr>
+                                          <tr>
+                                            <th class="text-bold">Date of Birth:</th>
+                                            <td>{{ $user->dob }}</td>
+                                            <td class="text-bold">Place of Birth:</td>
+                                            <td>{{ $user->pob }}</td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
                                     <h4 class="form_title">Program Choice</h4>
                                     <form action="{{ route('concour.register') }}" method="POST" class="signup_form row">
                                         @csrf
@@ -53,12 +81,18 @@
                                             <label class="input_title" for="firstName">Choose Program</label>
                                             <select name="program_choice" id="programChoice" class="niceselect @error('program_choice') border-danger @enderror">
                                                 <option value="">Choose a program</option>
-                                                <option value="meng">Masters in Engineering</option>
+                                                <option value="meng" >Masters in Engineering</option>
                                                 <option value="arch">Masters in Architecture</option>
                                                 <option value="man">Masters in Engineering Management</option>
                                                 <option value="tech">Senior Technicians</option>
                                             </select>
                                             @error('program_choice') <small class="text-danger">{{ $message }}</small>  @enderror
+                                        </div>
+                                        <div class="form-group col-lg-12">
+                                            <h4 class="form_title">Payment Details</h4>
+                                            <label class="input_title" for="firstName">Enter Transaction ID</label>
+                                            <input type="text" class="form-control @error('program_choice') border-danger @enderror" placeholder="Enter Transaction ID" name="transaction_id" value="{{ old('transaction_id') }}">
+                                            @error('transaction_id') <small class="text-danger">{{ $message }}</small>  @enderror
                                         </div>
                                         <div class="form-group col-lg-12">
                                             <button type="submit"class="btn thm_btn text-transform-inherit">Save and Continue</button>

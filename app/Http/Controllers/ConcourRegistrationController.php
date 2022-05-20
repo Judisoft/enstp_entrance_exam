@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ConcourRegistration;
 use App\Models\User;
+use App\Models\TransactionId;
 
 class ConcourRegistrationController extends Controller
 {
@@ -45,23 +46,38 @@ class ConcourRegistrationController extends Controller
     {
         $applicant_info = $request->validate([
             'program_choice' => 'required|unique:concour_registrations',
+            'transaction_id' => 'required|unique:concour_registrations'
             
         ],
          [
-             'program_choice.required' => 'Select a Program Choice',
-            'program_choice.unique' => 'You have already cho'
+            'program_choice.required' => 'Select a Program Choice',
+            'program_choice.unique' => 'You have already have an submitted  or have an ongoing application',
+            'transaction_id.required' => 'Enter Transaction ID',
+            'transaction_id.unique' => 'Transaction ID is already associated with an application!'
         ]);
 
         $applicant_info = new ConcourRegistration;
         $applicant_info->user_id = Auth::user()->id;
         $applicant_info->program_choice = $request->input('program_choice');
+        $applicants_transaction_id = $request->input('transaction_id');
+
+        // check validity of applicant's transaction id
+
+        $trans_id = TransactionId::select('transaction_id')->where('transaction_id', '=', $applicants_transaction_id)->get();
+
+        if($trans_id != null) {
+            $applicant_info->transaction_id = $applicants_transaction_id;
+        } else {
+            return back()->with('error', 'Invalid Transaction Id');
+        }
+        
 
         $applicant_info->save();
 
         if($applicant_info->id) {
-            return back()->with('success', 'Application received successfully');
+            return back()->with('success', 'Application saved');
         } else {
-            return back()->withInput('error', 'Oups! Something went wrong');
+            return back()->with('error', 'Oups! Something went wrong');
         }
         
     }

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controller\ConcourRegistrationController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,4 +24,5 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::post('/home', [App\Http\Controllers\ConcourRegistrationController::class, 'store'])->name('concour.register');
+Route::patch('/{user}/update', [App\Http\Controllers\UserController::class, 'update'])->name('user.update');
 Route::get('concour-registration', [App\Http\Controllers\ConcourRegistrationController::class, 'create'])->name('create.register');

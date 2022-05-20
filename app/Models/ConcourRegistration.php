@@ -13,10 +13,15 @@ class ConcourRegistration extends Model
 
     protected $fillable = [
         'program_choice',
-        'user_id'
+        'user_id',
+        'transaction_id'
     ];
 
     public function user() {
         return $this->belongsTo(User::class);
+    }
+
+    public function transaction() {
+        return $this->hasOne(TransactionId::class);
     }
 }

@@ -25,7 +25,10 @@
                                 <div class="overlay_bg" data-bg-color="rgba(43, 45, 58, 0.85)"></div>
                                 <div class="formify_logo_wrapper">
                                     <a href="index.html"><img src="{{ asset('img/logo.png') }}" alt=""></a>
-                                    <a href="{{ route('logout') }}">logout</a>
+                                    <a href="{{ route('logout') }}" class="btn thm_btn text-transform-inherit" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">Logout</a>
+                                    <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
                                 </div> 
                                 <div class="content text-center">
                                     <a href="{{ route('create.register') }}" class="btn thm_btn text-transform-inherit">Apply</a>
@@ -46,7 +49,7 @@
                                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                             </button>
-                                    </div>
+                                        </div>
                                     @endif
                                     <h4 class="form_title">Personal Information</h4>
                                     <form action="{{ route('user.update', $user->id) }}" method="POST" class="signup_form row">
@@ -80,8 +83,8 @@
                                             <label class="input_title">Gender</label>
                                             <select class="niceselect" name="gender">
                                                 <option value="">Select gender</option>
-                                                <option value="m" @if($user->gender === 'm') selected="selected" @endif>Male</option>
-                                                <option value="f" @if($user->gender === 'f') selected="selected" @endif>Female</option>
+                                                <option value="M" @if($user->gender === 'M') selected="selected" @endif>Male</option>
+                                                <option value="F" @if($user->gender === 'F') selected="selected" @endif>Female</option>
                                             </select>
                                         </div>
                                         <div class="form-group col-lg-12">

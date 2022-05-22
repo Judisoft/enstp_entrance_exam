@@ -25,7 +25,8 @@ class User extends Authenticatable
         'telephone',
         'dob',
         'pob',
-        'gender'
+        'gender',
+        'user_role_id'
     ];
 
     /**
@@ -49,5 +50,9 @@ class User extends Authenticatable
 
     public function concour_registrations() {
         return $this->hasMany(ConcourRegistration::class);
+    }
+    
+    public function roles() {
+        return $this->hasMany(Role::class);
     }
 }

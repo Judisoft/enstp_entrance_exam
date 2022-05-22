@@ -81,10 +81,9 @@
                                             <label class="input_title" for="firstName">Choose Program</label>
                                             <select name="program_choice" id="programChoice" class="niceselect @error('program_choice') border-danger @enderror">
                                                 <option value="">Choose a program</option>
-                                                <option value="meng" >Masters in Engineering</option>
-                                                <option value="arch">Masters in Architecture</option>
-                                                <option value="man">Masters in Engineering Management</option>
-                                                <option value="tech">Senior Technicians</option>
+                                                @foreach($programs as $program)
+                                                    <option value="{{$program->code}}" class="text-uppercase">{{$program->title}}</option>
+                                                @endforeach
                                             </select>
                                             @error('program_choice') <small class="text-danger">{{ $message }}</small>  @enderror
                                         </div>

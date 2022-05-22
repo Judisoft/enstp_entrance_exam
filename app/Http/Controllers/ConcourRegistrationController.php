@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\ConcourRegistration;
 use App\Models\User;
 use App\Models\TransactionId;
+use App\Models\Program;
 
 class ConcourRegistrationController extends Controller
 {
@@ -30,11 +31,11 @@ class ConcourRegistrationController extends Controller
     {
         // $user = Auth::user();
         $user = Auth::user();
-        $registrant = ConcourRegistration::find(1)->user;
+        // $registrant = ConcourRegistration::find(1)->user;
 
-        // return dd($registrant);
+        $programs = Program::all();
 
-        return view('concour-registration', compact('user', 'registrant'));
+        return view('concour-registration', compact('user', 'programs'));
     }
 
     /**

@@ -30,24 +30,35 @@
                         </div>
                         <div class="col-lg-6 formify_content_right">
                             <div class="formify_box ml-auto mr-auto">
+                                @if (Session::has('success'))
+                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                        <strong>All good!</strong> {{ Session::get('success') }}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                @elseif(Session::has('error'))
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <strong>Oups!</strong> {{ Session::get('error') }}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                @endif
                                 <h5 class="form_title">Login</h5>
-                                <a href="#" class="btn btn-social btn-google"><img class="icon"
-                                        src="{{ asset('img/google.png') }}" alt="">Login
-                                    in with Google</a>
-                                <div class="text-center">
-                                    <span class="or-text">or</span>
-                                </div>
                                 <form action="{{ route('login') }}" method="POST" class="signup_form">
                                     @csrf
                                     <div class="form-group">
                                         <label class="input_title" for="inputEmail">Email</label>
                                         <input type="email" class="form-control" name="email" id="inputEmail"
                                             placeholder="Email address" >
+                                            @error('email') <small class="text-danger">{{ $message }}</small>  @enderror
                                     </div>
                                     <div class="form-group">
                                         <label class="input_title" for="inputPassword">Password</label>
                                         <input type="password" class="form-control" name="password" id="inputPassword"
                                             placeholder="Enter password" >
+                                            @error('password') <small class="text-danger">{{ $message }}</small>  @enderror
                                     </div>
                                     <div class="form-group">
                                         <button type="submit" class="btn action_btn thm_btn">Sign in</button>

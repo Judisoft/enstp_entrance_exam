@@ -17,11 +17,8 @@ class AdminDashboard
      */
     public function handle(Request $request, Closure $next)
     {
-        $user = Auth::user();
-
-        // return dd($user->user_role_id);
-        if (Auth::check() && $user->user_role_id != 2) {
-            return redirect()->route('admin.login')->with('error', 'Access denied!');
+        if (Auth::check() && Auth::user()->hasRole() == 'admin') {
+            return route('admin.login');
         }
         return $next($request);
     }

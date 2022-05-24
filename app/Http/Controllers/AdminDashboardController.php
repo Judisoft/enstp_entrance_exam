@@ -12,7 +12,7 @@ class AdminDashboardController extends Controller
 {
     public function __construct() {
 
-        return $this->middleware('admin');
+        return $this->middleware('auth');
     }
     /**
      * Display a listing of the resource.
@@ -21,16 +21,15 @@ class AdminDashboardController extends Controller
      */
     public function index()
     {
-        // $programs = DB::table('concour_registrations')->select('program_choice')->groupBy('program_choice')->get();
         $programs = Program::all();
 
-        $numBtech = ConcourRegistration::where('program_choice', 'btech')->count();
-        $numHtech = ConcourRegistration::where('program_choice', 'htech')->count();
-        $numEng = ConcourRegistration::where('program_choice', 'eng')->count();
-        $numArc = ConcourRegistration::where('program_choice', 'arc')->count();
+        for($i=0; $i<count($programs); $i++) {
+
+           $program_counter = ConcourRegistration::where('program_choice', $programs[$i])->count();
+        }
 
 
-        return view('admin.dashboard', compact('programs', 'numBtech', 'numHtech', 'numEng', 'numArc'));
+        return view('admin.dashboard', compact('programs', 'program_counter'));
     }
 
     /**
@@ -99,9 +98,12 @@ class AdminDashboardController extends Controller
         //
     }
 
-    public function getApplicants() {
-            $users = User::where('gender', 'M')->get();
-            return view('admin.candidates', compact('users'));
+    public function getApplicants($program) {
+            $programs = Program::all();
+
+            $concour_registrations = ConcourRegistration::where('program_choice', $program)->simplePaginate(100);
+
+            return view('admin.applicants', compact('concour_registrations', 'programs', 'program'));
 
     }
 }

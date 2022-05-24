@@ -52,7 +52,7 @@ class User extends Authenticatable
         return $this->hasMany(ConcourRegistration::class);
     }
     
-    public function roles() {
-        return $this->hasMany(Role::class);
+    public function hasRole() {
+        return $this->role;
     }
 }

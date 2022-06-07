@@ -35,23 +35,28 @@ class AdminLoginController extends Controller
         if(Hash::check($credentials['password'], $user->password)) {
             $welcome_message = "Welcome".' '.$user->first_name;
             session()->flash('success', $welcome_message);
-            return redirect()->route('admin.dashboard');
+            return redirect('/admin/dashboard'); //->route('admin.dashboard');
         } else {
 
             return back()->with('error', 'Invalid Credentials');
         }
     }
 
-    /**
-     * Handle response after user authenticated
-     * 
-     * @param Request $request
-     * @param Auth $user
-     * 
-     * @return \Illuminate\Http\Response
-     */
-    protected function authenticated(Request $request, $user) 
-    {
-        return redirect()->intended();
+    public function logout(Request $request) {
+        Auth::logout();
+        return redirect()->route('admin.logout');
     }
+
+    // /**
+    //  * Handle response after user authenticated
+    //  * 
+    //  * @param Request $request
+    //  * @param Auth $user
+    //  * 
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // protected function authenticated(Request $request, $user) 
+    // {
+    //     return redirect()->intended();
+    // }
 }

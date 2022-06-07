@@ -26,7 +26,8 @@ class User extends Authenticatable
         'dob',
         'pob',
         'gender',
-        'user_role_id'
+        'region_of_origin',
+        'role'
     ];
 
     /**

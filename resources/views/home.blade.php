@@ -20,35 +20,25 @@
             <div class="f_content">
                 <div class="formify_box_three formify_box_four formify_login">
                     <div class="container-fluid custom_height">
+                        @include('layouts.navbar')
+                        <div class="d-flex justify-content-end bg-dark rounded">
+                            <div class="p-2"><a href="{{ route('view-application', auth()->user()->id) }}"  style="font-weight: 700;color:white;font-size:12.8px;"><span class="iconify" data-icon="bxs:folder-open"></span> my application</a></div>
+                            <div class="p-2"><span class="small text-white" style="font-weight: 700;"> <span class="iconify" data-icon="bx:user" style="color: white;font-weight:700;"></span>{{ auth()->user()->first_name }}</span></div>
+                            <div class="p-2"><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();" style="font-weight: 700;color:white;font-size:12.8px;"><span class="iconify" data-icon="entypo:log-out" style="color: white;"></span> Logout</a></div>
+                            <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </div>
                         <div class="row">
-                            <div class="col-lg-3 formify_content_left content-bg">
-                                <div class="overlay_bg" data-bg-color="rgba(43, 45, 58, 0.85)"></div>
-                                <div class="formify_logo_wrapper">
-                                    <a href="index.html"><img src="{{ asset('img/logo.png') }}" alt=""></a>
-                                    <a href="{{ route('logout') }}" class="btn thm_btn text-transform-inherit" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">Logout</a>
-                                    <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div> 
-                                <div class="content text-center">
-                                    <a href="{{ route('create.register') }}" class="btn thm_btn text-transform-inherit">Apply</a>
-                                </div>
-                            </div>
-                            <div class="col-lg-9 formify_content_right">
+                            <div class="col-lg-12 formify_content_right">
                                 <div class="formify_box">
                                     @if (Session::has('success'))
-                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                            <strong>All good!</strong> {{ Session::get('success') }}
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
+                                        <div class="alert alert-success alert-dismissible fade show p-3" role="alert">
+                                            <strong> {{ Session::get('success') }}  <a href="{{ route('create.register') }}" class="btn btn-secondary btn-sm float-right"> Next <span class="iconify" data-icon="akar-icons:arrow-right"></span></a></strong>
                                         </div>
                                     @elseif(Session::has('error'))
                                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                             <strong>Oups!</strong> {{ Session::get('error') }}
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                            </button>
                                         </div>
                                     @endif
                                     <h4 class="form_title">Personal Information</h4>
@@ -59,25 +49,30 @@
                                             <label class="input_title" for="firstName">First Name</label>
                                             <input type="text" class="form-control" id="firstName" name="first_name"
                                                 placeholder="First Name" value="{{ $user->first_name }}" >
+                                            @error('first_name') <small class="text-danger">{{ $message }}</small>  @enderror
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label class="input_title" for="lastName">last Name</label>
                                             <input type="text" class="form-control" id="lastName" name="last_name"
                                                 placeholder="last Name" value="{{ $user->last_name }}">
+                                                @error('last_name') <small class="text-danger">{{ $message }}</small>  @enderror
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label class="input_title" for="inputaddress">Email Address</label>
                                             <input type="email" class="form-control" id="inputaddress" name="email"
                                                 placeholder="Email Address" value="{{ $user->email }}" >
+                                                @error('email') <small class="text-danger">{{ $message }}</small>  @enderror
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label class="input_title" for="phone">Phone Number</label>
                                             <input type="tel" class="form-control"  maxlength="9" id="phone" name="telephone"
                                                 placeholder="Phone Number" value="{{ $user->telephone }}">
+                                                @error('telephone') <small class="text-danger">{{ $message }}</small>  @enderror
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label class="input_title" for="age">Date of Birth</label>
                                             <input type="date" class="form-control" name="dob" id="dob" value="{{ $user->dob }}">
+                                            @error('dob') <small class="text-danger">{{ $message }}</small>  @enderror
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label class="input_title">Gender</label>
@@ -86,14 +81,42 @@
                                                 <option value="M" @if($user->gender === 'M') selected="selected" @endif>Male</option>
                                                 <option value="F" @if($user->gender === 'F') selected="selected" @endif>Female</option>
                                             </select>
+                                            @error('gender') <small class="text-danger">{{ $message }}</small>  @enderror
                                         </div>
                                         <div class="form-group col-lg-12">
-                                            <label class="input_title" for="firstName">Place of Birth</label>
+                                            <label class="input_title" for="pob">Place of Birth</label>
                                             <input type="text" class="form-control" id="pob" name="pob"
                                                 placeholder="Place of birth" value="{{ $user->pob }}" >
+                                                @error('pob') <small class="text-danger">{{ $message }}</small>  @enderror
                                         </div>
                                         <div class="form-group col-lg-12">
-                                            <button type="submit"class="btn thm_btn text-transform-inherit text-right">Save and Continue</button>
+                                            <label class="input_title" for="region_of_origin">Region of Origin</label>
+                                            <select class="niceselect" name="region_of_origin">
+                                                <option value="">Select region of origin</option>
+                                                <option value="AD" class="text-uppercase" @if($user->region_of_origin === 'AD') selected="selected" @endif>Adamawa</option>
+                                                <option value="CE" class="text-uppercase" @if($user->region_of_origin === 'CE') selected="selected" @endif>Centre</option>
+                                                <option value="EN" class="text-uppercase" @if($user->region_of_origin === 'EN') selected="selected" @endif>Extrem North</option>
+                                                <option value="ES" class="text-uppercase" @if($user->region_of_origin === 'ES') selected="selected" @endif>East</option>
+                                                <option value="LT" class="text-uppercase" @if($user->region_of_origin === 'LT') selected="selected" @endif>Littoral</option>
+                                                <option value="NO" class="text-uppercase" @if($user->region_of_origin === 'NO') selected="selected" @endif>North</option>
+                                                <option value="NW" class="text-uppercase" @if($user->region_of_origin === 'NW') selected="selected" @endif>North West</option>
+                                                <option value="OU" class="text-uppercase" @if($user->region_of_origin === 'OU') selected="selected" @endif>West</option>
+                                                <option value="SU" class="text-uppercase" @if($user->region_of_origin === 'SU') selected="selected" @endif>South</option>
+                                                <option value="SW" class="text-uppercase" @if($user->region_of_origin === 'SW') selected="selected" @endif>South West</option>
+                                            </select>
+                                            @error('region_of_origin') <small class="text-danger">{{ $message }}</small>  @enderror
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label class="input_title">Are you a state Agent?</label>
+                                            <select class="niceselect" name="sa_status">
+                                                <option value="">select state agent status</option>
+                                                <option value="1" @if($user->state_agent === 'M') selected="selected" @endif>Yes</option>
+                                                <option value="0" @if($user->state_agent === 'F') selected="selected" @endif>No</option>
+                                            </select>
+                                            @error('sa_status') <small class="text-danger">{{ $message }}</small>  @enderror
+                                        </div>
+                                        <div class="form-group col-lg-12">
+                                            <button type="submit"class="btn thm_btn text-transform-inherit text-right" id="submitBtn">Save and Continue</button>
                                         </div>
                                     </form>
                                 </div>

@@ -1,6 +1,9 @@
 @extends('layouts.admin')
 @section('program')
-<div class="col-lg-5"><h2 class="text-uppercase" style="font-weight: 700;">Program Code: {{ $program }}</h2></div>
+<div class="d-flex justify-content-between">
+    <div class="p-2"><h2 class="text-uppercase" style="font-weight: 700;">Program Code: {{ $program }}</h2></div>
+    <div class="p-2"><a href="{{ route('export', $program) }}" class="btn btn-success"><i class="fa fa-download"></i> Download List</a></div>
+</div>
 @endsection
 @section('content')
 <div class="row content-wrapper">
@@ -16,7 +19,7 @@
                             <th>Gender</th>
                             <th>POB</th>
                             <th>DOB</th>
-                            <th>Application date </th>
+                            <th>App. Date</th>
                         </tr>
                     @endif
                 </thead>
@@ -29,16 +32,16 @@
                             <td>{{ $applicant->user->gender }}</td>
                             <td>{{ $applicant->user->pob }}</td>
                             <td>{{ $applicant->user->dob }}</td>
-                            <td>{{ $applicant->created_at }}</td>
+                            <td>{{ $applicant->created_at->format('Y-m-d') }}</td>
                         </tr>
                     @empty
                         <div class="card card-body rounded"><h5>No Applicant</h5></div>
                     @endforelse
                 </tbody>
             </table>
-            @if(count($concour_registrations) > 100)
-                <div class="card-footer text-right p-5">{{ $concour_registrations->links() }}</div>
-            @endif
+           
+                <div class="text-right p-5">{{ $concour_registrations->links() }}</div>
+            
         </div>
     </div>
 </div>

@@ -14,9 +14,10 @@ class Import_Export_Controller extends Controller
        return view('import');
     }
 
-    public function export() 
+    public function export($program) 
     {
-        return Excel::download(new ExportUsers, 'users.xlsx');
+        // return Excel::download(new ExportUsers, 'entrance_exams_list.xlsx');
+        return $program;
     }
 
     public function import() 

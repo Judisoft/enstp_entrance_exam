@@ -23,13 +23,28 @@ class AdminDashboardController extends Controller
     {
         $programs = Program::all();
 
-        for($i=0; $i<count($programs); $i++) {
+        $applicants = ConcourRegistration::all();
 
-           $program_counter = ConcourRegistration::where('program_choice', $programs[$i])->count();
-        }
+        $btech = ConcourRegistration::where('program_choice', 'btech')->get();
+        $htech = ConcourRegistration::where('program_choice', 'htech')->get();
+        $eng = ConcourRegistration::where('program_choice', 'eng')->get();
+        $arc = ConcourRegistration::where('program_choice', 'arc')->get();
 
+        return view('admin.dashboard', compact('programs', 'applicants', 'btech', 'htech', 'eng', 'arc')); 
 
-        return view('admin.dashboard', compact('programs', 'program_counter'));
+        // Returns the number of applicants per program
+
+        // for ($i=0; $i<count($programs); $i++) {
+
+        //     //echo $programs[$i]->code;
+        //     $candidates = ConcourRegistration::where('program_choice', $programs[$i]->code)->get();
+
+        //     echo $programs[$i]->code. ' => '.count($candidates) . "<br>" ;
+            
+        // }
+
+        
+        // return view('admin.dashboard', compact('programs', 'candidates'));
     }
 
     /**

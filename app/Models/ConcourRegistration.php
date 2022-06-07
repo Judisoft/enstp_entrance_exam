@@ -14,7 +14,11 @@ class ConcourRegistration extends Model
     protected $fillable = [
         'program_choice',
         'user_id',
-        'transaction_id'
+        'transaction_id',
+        'identification_document',
+        'identification_number',
+        'sponsor',
+        'writing_center'
     ];
 
     public function user() {

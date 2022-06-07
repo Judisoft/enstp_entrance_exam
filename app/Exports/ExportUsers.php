@@ -12,6 +12,8 @@ class ExportUsers implements FromCollection
     */
     public function collection()
     {
-        return User::all();
+        // return User::all();
+        return User::select('first_name', 'last_name', 'gender', 'dob', 'pob')->get();
+
     }
 }
